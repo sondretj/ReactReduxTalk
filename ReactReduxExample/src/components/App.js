@@ -1,88 +1,71 @@
 import React, {
   Component,
-  PropTypes,
 } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../actions';
 import Team from './Team';
 import Member from './Member';
 
-export default class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      teams: [],
-      members: [],
-      newTeam: {},
-      newMember: {}
-    };
-  }
+const mapStateToProps = state => {
+  return { ...state };
+}
+const mapDispatchToProps = dispatch => {
+  return { actions: bindActionCreators({ ...actions }, dispatch) };
+}
+
+class App extends Component {
 
   onAddTeam = () => {
-    const { newTeam } = this.state;
+    const { newTeam, teams } = this.props;
     if (!newTeam || !newTeam.name) {
       return;
     }
-    let teams = this.state.teams.slice();
-    teams.push({ ...newTeam , id: teams.length + 1});
-    this.setState({ teams, newTeam: {} });
+    this.props.actions.addTeam({ ...newTeam , id: teams.length + 1});
+    this.props.actions.resetNewTeam();
   }
 
   onAddMember = () => {
-    const { newMember } = this.state;
+    const { newMember, members } = this.props;
     if (!newMember || !newMember.name) {
       return;
     }
-    const members = this.state.members.slice();
-    members.push({ ...newMember, id: members.length + 1 });
-    this.setState({ members, newMember: {} });
+    this.props.actions.addMember({ ...newMember, id: members.length + 1 });
+    this.props.actions.resetNewMember();
   }
 
   onDeleteMember = id => {
-    const members= this.state.members.filter(member => member.id !== id);
-    this.setState({ members });
+    this.props.actions.deleteMember(id);
   }
 
   onDeleteTeam = id => {
-    const members = this.state.members.map(member => {
-      if (member.teamId === id) {
-        return {...member, teamId: 0 }
-      }
-      return member
-    })
-    const teams = this.state.teams.filter(team => team.id !== id);
-
-    this.setState({ teams, members });
+    this.props.actions.deleteTeam(id);
   }
 
   onNewTeamNameChange = e => {
-    this.setState({
-      newTeam: { name: e.target.value },
-    });
+    this.props.actions.newTeamNameChange(e.target.value)
   }
 
   onNewMemberNameChange = e => {
-    const { newMember } = this.state;
-    this.setState({ newMember: { ...newMember, name: e.target.value } });
+    this.props.actions.newMemberNameChange(e.target.value);
   }
 
   onNewMemberTeamChange = e => {
-    const { newMember } = this.state;
-    this.setState({ newMember: { ...newMember, teamId: parseInt(e.target.value) } });
+    this.props.actions.newMemberTeamChange(parseInt(e.target.value))
   }
 
   onMemberChange = member => {
-    console.log(member);
-    const index = this.state.members.findIndex(m => m.id === member.id);
+    const { members } = this.props;
+    const index = members.findIndex(m => m.id === member.id);
     if (index === -1) {
       return;
     }
-    const members = this.state.members.slice();
-    members[index] = member;
-    this.setState({ members });
+    this.props.actions.memberChange(member);
   }
 
   render() {
-    const { teams, members, newMember, newTeam } = this.state;
+    const { teams, members, newMember, newTeam } = this.props;
     const unassignedMembers = members.filter(member => !member.teamId);
     const unassignedMarkup = unassignedMembers.length > 0 ?
       unassignedMembers.map(member =>
@@ -141,3 +124,5 @@ export default class App extends Component {
   }
 
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

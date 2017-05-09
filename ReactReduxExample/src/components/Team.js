@@ -1,7 +1,8 @@
 import React, {
   Component,
-  PropTypes,
 } from 'react';
+import PropTypes from 'prop-types';
+
 import Member from './Member';
 
 export default class Team extends Component {
