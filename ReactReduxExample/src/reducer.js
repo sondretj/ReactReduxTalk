@@ -57,7 +57,7 @@ export default function todos(state = initialState, action) {
     }
 
     case constants.DELETE_TEAM: {
-      const members = state.members.map(member => { //TODO Whats happening here?
+      const members = state.members.map(member => {
         if (member.teamId === action.id) {
           return { ...member, teamId: 0 };
         }

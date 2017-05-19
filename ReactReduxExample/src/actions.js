@@ -6,7 +6,7 @@ export const DELETE_TEAM = 'DELETE_TEAM';
 export const DELETE_MEMBER = 'DELETE_MEMBER';
 
 
-export const NEW_MEMBER_NAME_CHANGE = 'NEW_MEMBER_NAME_CHANGE'; //TODO Why export consts ?
+export const NEW_MEMBER_NAME_CHANGE = 'NEW_MEMBER_NAME_CHANGE';
 export const NEW_MEMBER_TEAM_CHANGE = 'NEW_MEMBER_TEAM_CHANGE';
 
 export const NEW_TEAM_NAME_CHANGE = 'NEW_TEAM_NAME_CHANGE';
@@ -17,7 +17,7 @@ export const RESET_NEW_MEMBER = 'RESET_NEW_MEMBER';
 
 export const RESET_NEW_TEAM = 'RESET_NEW_TEAM';
 
-export const newMemberNameChange = name => ({ type: NEW_MEMBER_NAME_CHANGE, name }); // TODO Why is it formated this way?
+export const newMemberNameChange = name => ({ type: NEW_MEMBER_NAME_CHANGE, name });
 
 export const newMemberTeamChange = teamId => ({ type: NEW_MEMBER_TEAM_CHANGE, teamId });
 
@@ -27,11 +27,11 @@ export const deleteMember = id => ({ type: DELETE_MEMBER, id });
 
 export const addTeam = team => ({ type: ADD_TEAM, team });
 
-export const addMember = member => ({ type: ADD_MEMBER, member }); //TODO Maybe show example on what to do in an action besides just returning.
+export const addMember = member => ({ type: ADD_MEMBER, member });
 
 export const memberChange = member => ({ type: MEMBER_CHANGE, member });
 
-export const newTeamNameChange = name => ({ type: NEW_TEAM_NAME_CHANGE, name }); //TODO What is type and name in this context?
+export const newTeamNameChange = name => ({ type: NEW_TEAM_NAME_CHANGE, name });
 
 export const resetNewMember = () => ({ type: RESET_NEW_MEMBER });
 

@@ -113,12 +113,6 @@ class App extends Component {
             />
           )}
         </div>
-        {/*<div>
-          <pre>
-            {JSON.stringify(this.state, null, 4)}
-          </pre>
-
-        </div>*/}
       </div>
     );
   }
